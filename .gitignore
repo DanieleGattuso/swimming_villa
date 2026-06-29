@@ -1,0 +1,34 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# local data store (dev bookings) — keep the seed, ignore runtime writes
+/data/bookings.json
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env files — never commit secrets
+.env
+.env*.local
+.env.production
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea

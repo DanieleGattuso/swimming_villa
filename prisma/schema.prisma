@@ -1,0 +1,46 @@
+// Production persistence option for The Swimming Villa.
+// The app ships with a JSON-file store (lib/bookings.ts) so it runs with zero
+// setup. To go to production, install Prisma + a database and re-implement the
+// four functions in lib/bookings.ts against this model — nothing else changes.
+//
+//   npm i -D prisma && npm i @prisma/client
+//   npx prisma migrate dev --name init
+//
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BookingStatus {
+  pending
+  confirmed
+  cancelled
+}
+
+enum PaymentMode {
+  full
+  deposit
+}
+
+model Booking {
+  id              String        @id @default(cuid())
+  checkIn         DateTime      @db.Date
+  checkOut        DateTime      @db.Date
+  guests          Int
+  status          BookingStatus @default(pending)
+  paymentMode     PaymentMode   @default(full)
+  amountTotal     Int // minor units (cents)
+  amountDue       Int // charged now (full stay or deposit)
+  currency        String        @default("eur")
+  email           String?
+  name            String?
+  stripeSessionId String?       @unique
+  createdAt       DateTime      @default(now())
+
+  // Fast availability lookups by date window.
+  @@index([status, checkIn, checkOut])
+}

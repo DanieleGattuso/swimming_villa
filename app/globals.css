@@ -1,0 +1,108 @@
+@import 'react-day-picker/style.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── Color tokens (OKLCH) — see DESIGN.md ── */
+    --bg: oklch(0.984 0.004 210);
+    --surface: oklch(0.965 0.006 208);
+    --ink: oklch(0.235 0.022 235);
+    --ink-muted: oklch(0.47 0.02 228);
+    --sea: oklch(0.47 0.085 218);
+    --sea-deep: oklch(0.33 0.06 224);
+    --sea-light: oklch(0.88 0.034 210);
+    --sunset: oklch(0.7 0.15 47);
+    --sunset-deep: oklch(0.62 0.165 38);
+    --stone: oklch(0.905 0.014 78);
+
+    /* ── Semantic z-index scale ── */
+    --z-base: 0;
+    --z-sticky: 100;
+    --z-nav: 200;
+    --z-overlay: 300;
+    --z-modal: 400;
+    --z-toast: 500;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display), Georgia, serif;
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--sunset);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--sunset);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Wrap children at a comfortable reading measure. */
+  .measure {
+    max-width: 60ch;
+  }
+
+  /* ── react-day-picker, brand-themed ── */
+  .rdp-villa {
+    --rdp-accent-color: var(--sea);
+    --rdp-accent-background-color: var(--sea-light);
+    --rdp-day-width: 2.6rem;
+    --rdp-day-height: 2.6rem;
+    --rdp-day_button-width: 2.6rem;
+    --rdp-day_button-height: 2.6rem;
+    --rdp-day_button-border-radius: 999px;
+    --rdp-selected-border: none;
+    --rdp-range_middle-background-color: var(--sea-light);
+    --rdp-range_middle-color: var(--ink);
+    --rdp-today-color: var(--sunset-deep);
+    margin: 0;
+    color: var(--ink);
+  }
+  .rdp-villa .rdp-day_button:hover:not([disabled]) {
+    background: var(--sea-light);
+  }
+  .rdp-villa .rdp-range_start .rdp-day_button,
+  .rdp-villa .rdp-range_end .rdp-day_button {
+    background: var(--sea);
+    color: #fff;
+  }
+  .rdp-villa .rdp-disabled {
+    color: var(--ink-muted);
+    opacity: 0.35;
+    text-decoration: line-through;
+  }
+  .rdp-villa .rdp-chevron {
+    fill: var(--sea);
+  }
+}
